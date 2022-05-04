@@ -6,8 +6,9 @@ export class ButtonsController {
   constructor() {}
 
   @Post('heart-button/:state')
-  pressHeartButton(@Param() state: ButtonState) {
-    danny.heartButton.state.state = state;
+  pressHeartButton(@Param() { state }: { state: string }) {
+    if (state === 'reset') danny.heartButton.state.state = 'n/a';
+    else danny.heartButton.state.state = state as ButtonState;
 
     return danny.getState();
   }

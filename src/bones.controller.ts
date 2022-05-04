@@ -5,6 +5,17 @@ import { danny } from '@danny-dino/arduino';
 export class BonesController {
   constructor() {}
 
+  @Post(':id/complete')
+  complete(@Param('id') id: string) {
+    const bone = danny.bones.find((bone) => bone.state.id === id);
+
+    if (bone) {
+      bone.complete();
+    }
+
+    return danny.getState();
+  }
+
   @Post(':id/activate')
   activateBone(@Param('id') id: string) {
     const bone = danny.bones.find((bone) => bone.state.id === id);
@@ -12,6 +23,8 @@ export class BonesController {
     if (bone) {
       bone.activate();
     }
+
+    return danny.getState();
   }
 
   @Post(':id/deactivate')
@@ -21,6 +34,8 @@ export class BonesController {
     if (bone) {
       bone.makeInactive();
     }
+
+    return danny.getState();
   }
 
   @Post(':id/set-to-red')
@@ -30,6 +45,8 @@ export class BonesController {
     if (bone) {
       bone.turnRed();
     }
+
+    return danny.getState();
   }
 
   @Post(':id/set-to-green')
@@ -39,6 +56,8 @@ export class BonesController {
     if (bone) {
       bone.turnGreen();
     }
+
+    return danny.getState();
   }
 
   @Post('activate-next')
